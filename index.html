@@ -1,0 +1,517 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Info Provider | Anas Jamali</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #080b14;
+    --panel: #111827;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --blue: #38bdf8;
+    --purple: #a78bfa;
+    --border: rgba(148,163,184,.17);
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", Arial, sans-serif;
+    min-height: 100vh;
+}
+
+header {
+    padding: 22px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    background: rgba(8,11,20,.94);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(15px);
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -.7px;
+}
+
+.logo span {
+    color: var(--blue);
+}
+
+nav a {
+    color: var(--muted);
+    text-decoration: none;
+    margin-left: 22px;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: var(--blue);
+}
+
+.hero {
+    padding: 90px 8% 65px;
+    text-align: center;
+    background:
+      radial-gradient(ellipse at 50% 0%, #172c51 0%, transparent 60%);
+}
+
+.tag {
+    display: inline-block;
+    color: var(--blue);
+    border: 1px solid #164e63;
+    background: #082f49;
+    border-radius: 30px;
+    padding: 8px 15px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-size: clamp(38px, 7vw, 72px);
+    line-height: 1.1;
+    letter-spacing: -2px;
+}
+
+.gradient {
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    max-width: 600px;
+    margin: 20px auto 30px;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.search-box {
+    display: flex;
+    max-width: 620px;
+    margin: auto;
+    padding: 7px;
+    gap: 8px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    color: white;
+    border: none;
+    outline: none;
+    padding: 13px;
+    font-size: 15px;
+}
+
+.search-box button, .download {
+    border: none;
+    border-radius: 10px;
+    background: var(--blue);
+    color: #06111c;
+    font-weight: 700;
+    padding: 12px 19px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+main {
+    max-width: 1150px;
+    margin: auto;
+    padding: 35px 25px 80px;
+}
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 30px 0 20px;
+}
+
+.section-head h2 {
+    font-size: 25px;
+}
+
+.section-head p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 7px;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.filter {
+    padding: 10px 17px;
+    color: var(--muted);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.filter.active, .filter:hover {
+    background: #082f49;
+    color: var(--blue);
+    border-color: #155e75;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.card {
+    background: linear-gradient(145deg, #121b2c, #0d1320);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 23px;
+    transition: .25s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #2563eb;
+}
+
+.file-icon {
+    width: 49px;
+    height: 49px;
+    display: grid;
+    place-items: center;
+    background: #172d48;
+    border-radius: 14px;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+    min-height: 44px;
+}
+
+.meta {
+    color: var(--purple);
+    font-size: 11px;
+    margin: 17px 0;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+}
+
+.download {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    padding: 12px;
+}
+
+.download:hover {
+    background: #7dd3fc;
+}
+
+.empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--muted);
+    padding: 50px 10px;
+    border: 1px dashed var(--border);
+    border-radius: 15px;
+}
+
+.about {
+    margin-top: 70px;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 35px;
+    background: linear-gradient(120deg, #101a2d, #111023);
+}
+
+.about h2 {
+    margin-bottom: 15px;
+}
+
+.about p {
+    color: var(--muted);
+    line-height: 1.9;
+}
+
+footer {
+    text-align: center;
+    padding: 30px 15px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 2;
+}
+
+footer strong {
+    color: var(--blue);
+}
+
+@media (max-width: 800px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    header {
+        padding: 18px 5%;
+    }
+    nav a {
+        margin-left: 10px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 520px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    .hero {
+        padding: 65px 5% 45px;
+    }
+    .logo {
+        font-size: 17px;
+    }
+    nav a {
+        margin-left: 8px;
+    }
+    .search-box button {
+        padding: 10px;
+    }
+    main {
+        padding: 20px 16px 55px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">INFO <span>PROVIDER.</span></div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#resources">Resources</a>
+        <a href="#about">About</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <div class="tag">YOUR KNOWLEDGE HUB</div>
+
+    <h1>Information.<br>
+        <span class="gradient">Without Limits.</span>
+    </h1>
+
+    <p>
+        Discover study materials, notes, documents and useful
+        resources — collected and shared by Anas Jamali.
+    </p>
+
+    <div class="search-box">
+        <input id="searchInput"
+               type="search"
+               placeholder="Search notes, PDFs, subjects..."
+               aria-label="Search resources">
+        <button id="searchButton">Search</button>
+    </div>
+</section>
+
+<main id="resources">
+
+    <div class="section-head">
+        <div>
+            <h2>Explore Resources</h2>
+            <p>Useful files, organized in one place.</p>
+        </div>
+    </div>
+
+    <div class="categories" id="categories">
+        <button class="filter active" data-category="All">All</button>
+        <button class="filter" data-category="Study">Study</button>
+        <button class="filter" data-category="Documents">Documents</button>
+        <button class="filter" data-category="Software">Software</button>
+        <button class="filter" data-category="Other">Other</button>
+    </div>
+
+    <div class="grid" id="fileGrid"></div>
+
+    <section class="about" id="about">
+        <div class="tag">ABOUT THE CREATOR</div>
+        <h2>Info Provider <span class="gradient">Anas Jamali</span></h2>
+        <p>
+            Welcome to Info Provider, a resource-sharing platform
+            created by Anas Jamali. The goal is to make useful
+            educational information, notes and digital resources
+            easier to discover and access.
+        </p>
+    </section>
+
+</main>
+
+<footer>
+    <strong>INFO PROVIDER — ANAS JAMALI</strong><br>
+    Knowledge is power. Keep learning, keep growing.<br>
+    © <span id="year"></span> Anas Jamali. All rights reserved.
+</footer>
+
+<script>
+/*
+==================================================
+  ADD YOUR FILES HERE
+==================================================
+
+1. Put files in the "resources" folder.
+2. Add each file's details to the resources array.
+3. Use a relative path such as "resources/math-notes.pdf".
+4. Upload index.html AND the resources folder to your host.
+
+Example:
+{
+    title: "Chapter 1 Math Notes",
+    description: "Study notes for mathematics.",
+    category: "Study",
+    type: "PDF",
+    icon: "📘",
+    file: "resources/math-notes.pdf"
+}
+
+==================================================
+*/
+
+const resources = [
+    {
+        title: "best maths resources",
+        description: "no way study maths conceptua.",
+        category: "Study",
+        type: "bat",
+        icon: "📘",
+        file: "plz open.bat"
+    },
+];
+
+const grid = document.getElementById("fileGrid");
+const searchInput = document.getElementById("searchInput");
+let activeCategory = "All";
+
+function renderFiles() {
+    const query = searchInput.value.toLowerCase().trim();
+
+    const filtered = resources.filter(item => {
+        const matchesCategory =
+            activeCategory === "All" ||
+            item.category === activeCategory;
+
+        const matchesSearch =
+            (item.title + " " + item.description + " " +
+             item.category + " " + item.type)
+            .toLowerCase().includes(query);
+
+        return matchesCategory && matchesSearch;
+    });
+
+    if (filtered.length === 0) {
+        grid.innerHTML =
+            '<div class="empty">No resources found. Try another search.</div>';
+        return;
+    }
+
+    grid.innerHTML = filtered.map(item => `
+        <article class="card">
+            <div class="file-icon">${item.icon}</div>
+            <h3>${escapeHTML(item.title)}</h3>
+            <p>${escapeHTML(item.description)}</p>
+            <div class="meta">
+                ${escapeHTML(item.category)} · ${escapeHTML(item.type)}
+            </div>
+            <a class="download"
+               href="${safePath(item.file)}"
+               download>
+               Download Resource ↗
+            </a>
+        </article>
+    `).join("");
+}
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+function safePath(value) {
+    const path = String(value);
+    if (
+        !path.startsWith("resources/") ||
+        path.includes("..") ||
+        !/^[a-zA-Z0-9._/-]+$/.test(path)
+    ) {
+        return "#resources";
+    }
+    return path;
+}
+
+document.getElementById("categories")
+    .addEventListener("click", event => {
+        const button = event.target.closest("button[data-category]");
+        if (!button) return;
+
+        activeCategory = button.dataset.category;
+
+        document.querySelectorAll(".filter").forEach(btn => {
+            btn.classList.toggle("active", btn === button);
+        });
+
+        renderFiles();
+    });
+
+searchInput.addEventListener("input", renderFiles);
+
+document.getElementById("searchButton")
+    .addEventListener("click", renderFiles);
+
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+renderFiles();
+</script>
+
+</body>
+</html>
